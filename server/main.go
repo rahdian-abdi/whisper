@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"whisper/c2/handler"
+	"whisper/server/handler"
 )
 
 func main() {

