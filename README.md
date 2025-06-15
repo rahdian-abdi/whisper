@@ -46,8 +46,6 @@ The following features are planned to evolve Whisper from a simple C2 into a fra
 
 * [ ] **Encrypted C2 Channels (TLS):** Encrypt all traffic between the agent and server to prevent network inspection and hide commands.
 * [ ] **Malleable C2 Profiles:** Disguise C2 traffic to look like legitimate web traffic (e.g., HTTP/S POST requests) to blend in with normal network activity.
-* [ ] **In-Memory Execution:** Modify the agent to load and execute commands or modules directly in memory, avoiding disk writes that can be scanned by AV.
-* [ ] **Evasion of Process Monitoring:** Implement techniques like **process injection** or **direct syscalls** to execute commands without creating suspicious parent-child process relationships.
 * [ ] **Sleep Obfuscation & Jitter:** Introduce randomized delays (jitter) to the agent's check-ins to make its beaconing pattern less predictable and harder to detect.
 
 ---
