@@ -44,7 +44,7 @@ The roadmap below outlines the features needed to bypass this more advanced, beh
 
 The following features are planned to evolve Whisper from a simple C2 into a framework capable of evading more sophisticated, behavior-based security solutions.
 
-* [ ] **Encrypted C2 Channels (TLS):** Encrypt all traffic between the agent and server to prevent network inspection and hide commands.
+* [X] **Encrypted C2 Channels (TLS):** Encrypt all traffic between the agent and server to prevent network inspection and hide commands.
 * [ ] **Malleable C2 Profiles:** Disguise C2 traffic to look like legitimate web traffic (e.g., HTTP/S POST requests) to blend in with normal network activity.
 * [ ] **Sleep Obfuscation & Jitter:** Introduce randomized delays (jitter) to the agent's check-ins to make its beaconing pattern less predictable and harder to detect.
 
