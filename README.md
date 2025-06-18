@@ -74,3 +74,10 @@ The following features are planned to evolve Whisper from a simple C2 into a fra
     ```bash
     GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o msbuild64.exe main.go
     ```
+
+4.  **TLS Certificate:**
+    This C2 uses TLS for encrypted communication.  
+    You must generate your own certificate and private key and create `certs` folder in `server` folder
+
+    ```bash
+    openssl req -new -x509 -keyout certs/c2.key -out certs/c2.crt -days 365 -nodes

