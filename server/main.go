@@ -8,13 +8,6 @@ import (
 )
 
 func main() {
-	// address := "0.0.0.0:443"
-	// ln, err := net.Listen("tcp", address)
-	// if err != nil {
-	// 	fmt.Println("[-] Failed to bind:", err)
-	// 	os.Exit(1)
-	// }
-	// fmt.Println("[*] Whisper C2 listening on", address)
 
 	cert, err := tls.LoadX509KeyPair("certs/c2.crt", "certs/c2.key")
 	if err != nil {
