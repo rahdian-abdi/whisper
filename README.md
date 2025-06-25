@@ -62,10 +62,10 @@ The following features are planned to evolve Whisper from a simple C2 into a fra
 
 First, clone the repository to your local machine:
 
-    ```bash
+
     git clone https://github.com/rahdian-abdi/whisper.git
     cd whisper
-    ```
+
 
 ### **Option 1: Raw TCP Mode** 🔌
 
