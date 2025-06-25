@@ -1,2 +1,5 @@
-server/certs/*
+server/rawtcp/certs/*
+server/https/certs/*
 old.note
+!server/https/certs/.gitkeep
+!server/rawtcp/certs/.gitkeep
