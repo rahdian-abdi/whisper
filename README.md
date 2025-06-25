@@ -182,12 +182,11 @@ This mode uses HTTPS for encrypted communication, making it stealthier.
 2.  **Deploy the Agent:** Transfer the corresponding compiled agent (`agent_rawtcp.exe` or `agent_https.exe`) to a target machine you are authorized to test on and execute it.
 3.  **Interact with the Agent:** When the agent connects, the server terminal will notify you and prompt for a command.
     ```
-    > New agent connected from: 192.168.1.10:49876
-    > Enter command to run on agent 192.168.1.10:
-    $ whoami
-    > Command 'whoami' sent to agent.
-    > Agent response:
-    > DESKTOP-TEST\user
+    [*] Whisper HTTPS C2 listening on https://0.0.0.0:443
+    [whisper]> whoami
+    [*] Sent to Agent: whoami
+
+    [Agent Output] desktop-cej30mv\john
     ```
 
 ---
