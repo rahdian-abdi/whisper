@@ -1,26 +1,29 @@
-package main
+package rawtcp
 
 import (
 	"crypto/tls"
 	"fmt"
 	"log"
+	"whisper/internal/certgen"
 	"whisper/server/rawtcp/handler"
 )
 
-func main() {
+func Start(port string) {
 
-	cert, err := tls.LoadX509KeyPair("certs/c2.crt", "certs/c2.key")
+	cert, err := tls.LoadX509KeyPair(certgen.CertFile, certgen.KeyFile)
 	if err != nil {
 		log.Fatalf("Failed to load cert/key: %s", err)
 	}
 
 	config := &tls.Config{Certificates: []tls.Certificate{cert}}
-	ln, err := tls.Listen("tcp", ":443", config)
+	addr := ":" + port
+	ln, err := tls.Listen("tcp", addr, config)
 	if err != nil {
 		log.Fatalf("Failed to start TLS listener: %s", err)
 	}
 	defer ln.Close()
-	fmt.Println("[*] Whisper C2 listening on 0.0.0.0:443 (TLS)")
+	connetionMessage := fmt.Sprintf("[*] Whisper C2 listening on 0.0.0.0%s (TLS)", addr)
+	fmt.Println(connetionMessage)
 
 	for {
 		conn, err := ln.Accept()

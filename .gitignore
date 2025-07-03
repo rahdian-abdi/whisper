@@ -3,3 +3,4 @@ server/https/certs/*
 old.note
 !server/https/certs/.gitkeep
 !server/rawtcp/certs/.gitkeep
+README copy.md
